@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+    web:
+        build: .
+        ports:
+            - "5000:5000"
+        links: 
+            - rabbit
+        depends_on:
+            - rabbit
+        volumes:
+            - .:/code
+        command: /usr/bin/supervisord
+    rabbit:
+        hostname: rabbit
+        image: rabbitmq:3-management
+        ports:
+            - "5672:5672"
+            - "15672:15672"
